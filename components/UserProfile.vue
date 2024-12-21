@@ -5,7 +5,7 @@ const role = ref('GUEST')
 const username = ref('')
 const fullname = ref('')
 let userId = 0
-
+const toggleClass=ref(false)
 const toggleAdminmode = ref(true)
 onBeforeMount(async () => {
     let roleUser = localStorage.getItem("UserRole")
@@ -16,6 +16,7 @@ onBeforeMount(async () => {
         role.value = roleUser
         toggleAdminmode.value=localStorage.getItem("UserRole")=='ADMIN'
     }
+    toggleClass.value=role=='GUEST'
 
 
 })
@@ -80,8 +81,8 @@ const toggleRole = () => {
             </button>
         </div>
     </div>
-    <div  v-if="role != 'GUEST'" v-show="isDropdownOpen"
-        class="absolute right-[4.0rem]  w-48 bg-black  rounded-md shadow-lg z-30" :class="role=='GUEST'  ? 'mt-[85px]':'mt-[112px]'">
+    <div  v-if="role != 'GUEST' && isDropdownOpen" 
+        class="absolute right-[4.0rem]  w-48 bg-black  rounded-md shadow-lg z-30" :class="toggleClass ? 'mt-[85px]':'mt-[112px]'">
         <ul class="py-2">
             <li>
                 <p @click="godetail" class="block px-4 py-2 text-sm text-gray-200 hover:bg-[#ff0000] hover:text-white cursor-default">
